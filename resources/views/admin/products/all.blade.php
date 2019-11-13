@@ -1,5 +1,15 @@
 @extends('layout/admin')
 
+@section('breadcrumbs')
+    <div class="breadcrumbs-area clearfix">
+        <h4 class="page-title pull-left">Products</h4>
+        <ul class="breadcrumbs pull-left">
+            <li><a href="/admin/products">Home</a></li>
+            <li><span>All products</span></li>
+        </ul>
+    </div>
+@endsection
+
 @section('content')
     <!-- sales report area start -->
                 <div class="sales-report-area mt-5 mb-5">
