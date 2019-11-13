@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return 'Products page';
+        return view('admin/products/all');
     }
 
     /**
