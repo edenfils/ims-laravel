@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>srtdash - ICO Dashboard</title>
+    <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="/images/icon/favicon.ico">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -37,14 +37,14 @@
     <div class="page-container">
         <!-- sidebar menu area start -->
         <div class="sidebar-menu">
-            @include('layout/partials/left-sidebar')
+            @include('layouts/partials/left-sidebar')
         </div>
         <!-- sidebar menu area end -->
         <!-- main content area start -->
         <div class="main-content">
             <!-- header area start -->
             <div class="header-area">
-                @include('layout/partials/header')
+                @include('layouts/partials/header')
             </div>
             <!-- header area end -->
             <!-- page title area start -->
@@ -54,7 +54,7 @@
                         @yield('breadcrumbs')
                     </div>
                     <div class="col-sm-6 clearfix">
-                        @include('layout/partials/profile')
+                        @include('layouts/partials/profile')
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
         </div>
         <!-- main content area end -->
         <!-- footer area start-->
-        @include('layout/partials/footer')
+        @include('layouts/partials/footer')
         <!-- footer area end-->
     </div>
     <!-- page container area end -->

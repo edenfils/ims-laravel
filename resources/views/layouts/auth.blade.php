@@ -37,17 +37,7 @@
     <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
-                <form>
-                    <div class="login-form-head">
-                        @yield('form-head')
-                    </div>
-                    <div class="login-form-body">
-                        @yield('form-body')
-                        <div class="form-footer text-center mt-5">
-                            @yield('form-footer')
-                        </div>
-                    </div>
-                </form>
+                @yield('content')
             </div>
         </div>
     </div>

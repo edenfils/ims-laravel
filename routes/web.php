@@ -19,12 +19,17 @@ Route::get('/', 'PageController@index');
 
 
 /***** ADMIN ROUTES *****/
-Route::get('/admin/products', 'Admin\ProductController@index');
+Route::get('/admin/products', 'Admin\ProductController@index')->middleware('auth');
 Route::post('/admin/products', 'Admin\ProductController@store');
-Route::get('/admin/products/create', 'Admin\ProductController@create');
-Route::get('/admin/products/{id}', 'Admin\ProductController@show');
-Route::get('/admin/products/{id}/edit', 'Admin\ProductController@edit');
+Route::get('/admin/products/create', 'Admin\ProductController@create')->middleware('auth');
+Route::get('/admin/products/{id}', 'Admin\ProductController@show')->middleware('auth');
+Route::get('/admin/products/{id}/edit', 'Admin\ProductController@edit')->middleware('auth');
 Route::put('/admin/products/{id}/edit', 'Admin\ProductController@update');
-Route::delete('/admin/products/{id}/delete', 'Admin\ProductController@destroy');
+Route::delete('/admin/products/{id}/delete', 'Admin\ProductController@destroy')->middleware('auth');
 
 
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

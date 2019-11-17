@@ -1,4 +1,9 @@
-@extends('layout/admin')
+@extends('layouts/admin')
+
+
+@section('title')
+    All products - IMS Laravel
+@endsection
 
 @section('breadcrumbs')
     <div class="breadcrumbs-area clearfix">
