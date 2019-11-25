@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             state VARCHAR(100) NOT NULL,
             country VARCHAR(3) NOT NULL DEFAULT 'USA',
             payment_type VARCHAR(60) NOT NULL DEFAULT 'paypal',
-            user_id INT NOT NULL,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)");
     }

@@ -16,6 +16,7 @@ class CreateBrandsTable extends Migration
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(200) NOT NULL,
                 description TEXT,
+                user_id BIGINT(20) UNSIGNED NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 
