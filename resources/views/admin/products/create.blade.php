@@ -24,6 +24,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form action="" method="POST">
+                            @csrf
                         <div class="form-group">
                             <label for="example-text-input" class="col-form-label">Title</label>
                             <input class="form-control" type="text" value="" id="example-text-input" name="title">
