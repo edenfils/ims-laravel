@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -29,6 +30,8 @@ class ProductController extends Controller
     {   
         $user = Auth::user();
 
+
+
         return view('admin/products/create', compact('user'));
     }
 
@@ -40,7 +43,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // obteniendo todos los datos del formulario
+        $product = $request->all();
+
+        // insertando los datos en la tabla
+        DB::insert('insert into products (title, sku, img_url, material,description, brand_id, qty, size, user_id) values (?, ?, ?, ?, ?, ?,?, ?, ?)', [$product['title'], $product['sku'], $product['img_url'], $product['material'], $product['description'], 1 , $product['qty'], $product['size'], 1 ]);
+        
+
+        //redireccionando
+        return redirec('admin/products');
     }
 
     /**

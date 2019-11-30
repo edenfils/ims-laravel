@@ -23,7 +23,7 @@
             <div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <form action="" method="POST">
+                    <form action="{{route('products')}}" method="POST">
                             @csrf
                         <div class="form-group">
                             <label for="example-text-input" class="col-form-label">Title</label>

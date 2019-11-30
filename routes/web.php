@@ -20,7 +20,7 @@ Route::get('/', 'PageController@index');
 
 /***** ADMIN ROUTES *****/
 Route::get('/admin/products', 'Admin\ProductController@index')->middleware('auth');
-Route::post('/admin/products', 'Admin\ProductController@store');
+Route::post('/admin/products', 'Admin\ProductController@store')->name('products');
 Route::get('/admin/products/create', 'Admin\ProductController@create')->middleware('auth');
 Route::get('/admin/products/{id}', 'Admin\ProductController@show')->middleware('auth');
 Route::get('/admin/products/{id}/edit', 'Admin\ProductController@edit')->middleware('auth');
