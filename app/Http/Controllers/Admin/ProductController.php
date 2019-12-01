@@ -42,14 +42,41 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
 
         // obteniendo todos los datos del formulario
-        $product = $request->all();
+        /*$product = $request->all();*/
+
+        // obteniendo todos los datos del formulario validados   
+        $product = $request->validated();
 
         // insertando los datos en la tabla
-        DB::insert('insert into products (title, sku, price, img_url, material,description, brand_id, qty, size, user_id) values (?, ?, ?, ?, ?, ?, ?,?, ?, ?)', [$product['title'], $product['sku'], $product['price'], $product['img_url'], $product['material'], $product['description'], 1 , $product['qty'], $product['size'], 1 ]);
+        DB::insert('insert into products (
+                title, 
+                sku, 
+                price, 
+                img_url, 
+                material,
+                description, 
+                brand_id, 
+                qty, 
+                size, 
+                user_id) 
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [
+                $product['title'], 
+                $product['sku'], 
+                $product['price'], 
+                $product['img_url'], 
+                $product['material'], 
+                $product['description'], 
+                1 , $product['qty'], 
+                $product['size'], 
+                1 
+            ]);
+        
+
         
 
         //redireccionando

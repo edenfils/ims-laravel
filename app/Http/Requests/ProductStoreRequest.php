@@ -24,8 +24,8 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|alpha_num|max:200',
-            'sku'           => 'required|alpha_num|max:60',
+            'title'         => 'required|string|max:200',
+            'sku'           => 'required|string|max:60',
             'price'         => 'required|numeric',
             'img_url'       => 'required|url',
             'material'      => 'required|string|max:60',
@@ -33,7 +33,7 @@ class ProductStoreRequest extends FormRequest
             'brand_id'      => 'required|numeric',
             'qty'           => 'required|numeric',
             'size'          => 'required|numeric',
-            'user_id'       => 'required|numeric',
+            /*'user_id'       => 'required|numeric',*/
         ];
     }
 
@@ -73,8 +73,8 @@ class ProductStoreRequest extends FormRequest
             'size.required'     => 'The product :attribute is required.',
             'size.numeric'       => 'The product :attribute must be a number',
 
-            'user_id.required'     => 'The product :attribute is required.',
-            'user_id.numeric'       => 'Please select a valid user',
+            /*'user_id.required'     => 'The :attribute is required.',
+            'user_id.numeric'       => 'Please select a valid user',*/
 
         ];
     }
