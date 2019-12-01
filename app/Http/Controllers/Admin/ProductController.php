@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductStoreRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -48,11 +49,11 @@ class ProductController extends Controller
         $product = $request->all();
 
         // insertando los datos en la tabla
-        DB::insert('insert into products (title, sku, img_url, material,description, brand_id, qty, size, user_id) values (?, ?, ?, ?, ?, ?,?, ?, ?)', [$product['title'], $product['sku'], $product['img_url'], $product['material'], $product['description'], 1 , $product['qty'], $product['size'], 1 ]);
+        DB::insert('insert into products (title, sku, price, img_url, material,description, brand_id, qty, size, user_id) values (?, ?, ?, ?, ?, ?, ?,?, ?, ?)', [$product['title'], $product['sku'], $product['price'], $product['img_url'], $product['material'], $product['description'], 1 , $product['qty'], $product['size'], 1 ]);
         
 
         //redireccionando
-        return redirec('admin/products');
+        return redirect('admin/products');
     }
 
     /**
