@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductStoreRequest extends FormRequest
+class ProductStoreRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -92,6 +92,27 @@ class ProductStoreRequest extends FormRequest
             'qty' => 'quantity',
             'size' => 'size',
             'user_id' => 'user'
+        ];
+    }
+
+    /**
+     *  Filters to be applied to the input.
+     *
+     * @return array
+     */
+    public function filters()
+    {
+        return [
+            'title'         => 'trim|strip_tags|escape',
+            'sku'           => 'trim|strip_tags|escape',
+            'price'         => 'strip_tags|escape',
+            'img_url'       => 'trim|strip_tags|escape',
+            'material'      => 'trim|strip_tags|escape',
+            'description'   => 'strip_tags|escape',
+            'brand_id'      => 'strip_tags|digit|escape',
+            'qty'           => 'strip_tags|digit|escape',
+            'size'          => 'strip_tags|digit|escape',
+            /*'user_id'       => 'strip_tags|digit|escape',*/
         ];
     }
 }
