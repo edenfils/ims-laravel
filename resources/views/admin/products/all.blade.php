@@ -23,7 +23,7 @@
                         <div class="col-12 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="header-title">Progress Table</h4>
+                                    <h4 class="header-title">Products Table</h4>
                                     <div class="single-table">
                                         <div class="table-responsive">
                                             <table class="table table-hover progress-table text-center">
@@ -42,27 +42,26 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+
+                                                    @foreach ($products as $product)
                                                     <tr>
-                                                        <td scope="row">1</td>
-                                                        <td>Mark</td>
-                                                        <td>09 / 07 / 2018</td>
-                                                        <td>
-                                                            <div class="progress" style="height: 8px;">
-                                                                <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td><span class="status-p bg-primary">pending</span></td>
-                                                        <td>
-                                                            <ul class="d-flex justify-content-center">
-                                                                <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                                <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                            </ul>
-                                                        </td>
-                                                        <td scope="row">1</td>
-                                                        <td scope="row">1</td>
-                                                        <td scope="row">1</td>
-                                                        <td scope="row">1</td>
-                                                    </tr>
+                                                    <td scope="row">{{ $product->id }}</td>
+                                                            <td>{{ $product->title }}</td>
+                                                            <td>{{ $product->sku }}</td>
+                                                            <td>
+                                                                {{ $product->material }}
+                                                            </td>
+                                                            <td>{{ $product->qty }}</td>
+                                                            <td>
+                                                                {{ $product->size }}
+                                                            </td>
+                                                            <td>{{ $product->brand_id }}</td>
+                                                            <td>{{ $product->user_id }}</td>
+                                                            <td>Approved</td>
+                                                            <td>Edit/delete</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>

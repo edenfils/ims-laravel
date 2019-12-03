@@ -18,8 +18,11 @@ class ProductController extends Controller
     public function index()
     {
         $user = Auth::user();
-        //return 'Landing Page';
-        return view('admin/products/all', compact('user'));
+        
+        // buscando todos los productos
+        $products = DB::select('select * from products');
+
+        return view('admin/products/all', ['user' => $user, 'products' => $products]);
     }
 
     /**
