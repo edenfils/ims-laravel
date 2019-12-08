@@ -20,7 +20,23 @@ class ProductController extends Controller
         $user = Auth::user();
         
         // buscando todos los productos
-        $products = DB::select('select * from products');
+        $products = DB::select('select products.id,
+            products.title,
+            products.sku,
+            products.price,
+            products.material,
+            products.qty,
+            products.size,
+            products.user_id,
+            brands.title AS brand,
+            users.name AS user,
+            products.created_at
+            FROM products
+            INNER JOIN brands
+            ON products.brand_id = brands.id
+            INNER JOIN users
+            ON products.user_id = users.id
+            ORDER BY  created_at ASC');
 
         return view('admin/products/all', ['user' => $user, 'products' => $products]);
     }
@@ -94,7 +110,33 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+
+        // obteniendo el producto especifico
+        $product  =  DB::select('select products.id,
+        products.title,
+        products.sku,
+        products.price,
+        products.img_url,
+        products.material,
+        products.description,
+        products.qty,
+        products.size,
+        products.user_id,
+        brands.title AS brand,
+        users.name AS user,
+        products.created_at
+        FROM products
+        INNER JOIN brands
+        ON products.brand_id = brands.id
+        INNER JOIN users
+        ON products.user_id = users.id
+        WHERE products.id = ?
+        ORDER BY  created_at ASC', [$id]);
+
+        //return $product;
+
+        return view('admin/products/show', ['product'=> $product, 'user' => $user]);
     }
 
     /**

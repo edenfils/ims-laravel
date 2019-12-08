@@ -32,7 +32,9 @@
                                                         <th scope="col">ID</th>
                                                         <th scope="col">Title</th>
                                                         <th scope="col">SKU</th>
-                                                        <th scope="col">Material</th>
+                                                        <th scope="col">Price</th>
+                                                        <th 
+                                                        scope="col">Material</th>
                                                         <th scope="col">Quantity</th>
                                                         <th scope="col">Size</th>
                                                         <th scope="col">Brand</th>
@@ -46,8 +48,12 @@
                                                     @foreach ($products as $product)
                                                     <tr>
                                                     <td scope="row">{{ $product->id }}</td>
-                                                            <td>{{ $product->title }}</td>
+                                                    <td>
+                                                        <a href="/admin/products/{{ $product->id}}">    {{ $product->title }}
+                                                        </a>
+                                                    </td>
                                                             <td>{{ $product->sku }}</td>
+                                                            <td>${{ $product->price }}</td>
                                                             <td>
                                                                 {{ $product->material }}
                                                             </td>
@@ -55,9 +61,12 @@
                                                             <td>
                                                                 {{ $product->size }}
                                                             </td>
-                                                            <td>{{ $product->brand_id }}</td>
-                                                            <td>{{ $product->user_id }}</td>
-                                                            <td>Approved</td>
+                                                            <td>{{ $product->brand }}</td>
+                                                            <td>{{ $product->user }}</td>
+                                                            <td><span class="status-p 
+                                                                bg-primary">
+                                                                Availabale
+                                                              </span></td>
                                                             <td>Edit/delete</td>
                                                         </tr>
                                                     @endforeach
