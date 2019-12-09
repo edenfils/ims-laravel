@@ -64,7 +64,7 @@
     <div class="col-md-3 mt-5">
             <div class="card">
                 <div class="card-body">
-                        <a href="" type="button" class="btn btn-block btn-primary btn-lg mb-3">
+                <a href="/admin/products/{{$id}}/edit" type="button" class="btn btn-block btn-primary btn-lg mb-3">
                             Edit 
                             <i class="ti-pencil-alt"></i>
                         </a>

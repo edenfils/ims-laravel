@@ -136,7 +136,7 @@ class ProductController extends Controller
 
         //return $product;
 
-        return view('admin/products/show', ['product'=> $product, 'user' => $user]);
+        return view('admin/products/show', ['product'=> $product, 'user' => $user, 'id' => $id]);
     }
 
     /**
@@ -147,7 +147,37 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+
+        // obteniendo el producto especifico
+        $product  =  DB::select('select products.id,
+        products.title,
+        products.sku,
+        products.price,
+        products.img_url,
+        products.material,
+        products.description,
+        products.qty,
+        products.size,
+        products.user_id,
+        brands.title AS brand,
+        users.name AS user,
+        products.created_at
+        FROM products
+        INNER JOIN brands
+        ON products.brand_id = brands.id
+        INNER JOIN users
+        ON products.user_id = users.id
+        WHERE products.id = ?
+        ORDER BY  created_at ASC', [$id]);
+
+        $brands = DB::select('select brands.id,
+            brands.title FROM brands
+        ');
+
+        //return $product;
+
+        return view('admin/products/edit', ['product'=> $product, 'user' => $user, 'brands' => $brands, 'id' => $id]);
     }
 
     /**
@@ -159,7 +189,32 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        // actualizar producto 
+        DB::update('update products SET  
+            title = :title,
+            sku = :sku,
+            price = :price,
+            img_url = :img_url,
+            material = :material,
+            description = :description,
+            qty = :qty,
+            size = :size,
+            brand_id = :brand_id 
+            WHERE id = :id', [
+                'title' => $request->input('title'), 
+                'sku' => $request->input('sku'), 
+                'price' => $request->input('price'),
+                'img_url' =>$request->input('img_url'),
+                'material' => $request->input('material'),
+                'description' => $request->input('description'),
+                'qty' => $request->input('qty'),
+                'size' => $request->input('size'),
+                'brand_id' => $request->input('brand_id'),
+                'id' => $id
+            ]);
+
+            return redirect()->route('product.show', ['id' => $id]);
     }
 
     /**
