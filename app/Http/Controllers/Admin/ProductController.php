@@ -225,6 +225,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('DELETE from products WHERE id = :id', ['id' => $id]);
+
+        return redirect()->route('products');
     }
 }

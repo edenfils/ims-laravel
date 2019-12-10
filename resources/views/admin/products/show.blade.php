@@ -68,7 +68,7 @@
                             Edit 
                             <i class="ti-pencil-alt"></i>
                         </a>
-                        <a href="" type="button" class="btn btn-block btn-danger btn-lg mb-3" onclick="return confirm('are you sure?')">
+                        <a href="/admin/products/{{$id}}/delete" type="button" class="btn btn-block btn-danger btn-lg mb-3" onclick="return confirm('are you sure?')">
                             Delete 
                                 <i class="ti-trash"></i>
                         </a>

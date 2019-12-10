@@ -67,7 +67,15 @@
                                                                 bg-primary">
                                                                 Availabale
                                                               </span></td>
-                                                            <td>Edit/delete</td>
+                                                            <td>
+                                                                <a 
+                                                                href="/admin/products/{{$product->id}}/edit" 
+                                                                class="fa fa-pencil text-success mr-3" 
+                                                                style="font-size: 22px;"></a>
+                                                                <a 
+                                                                href="http://" 
+                                                                class="fa fa-trash text-danger" style="font-size: 22px;" onclick="return confirm('are you sure?')"></a>
+                                                                </td>
                                                         </tr>
                                                     @endforeach
                                                     
