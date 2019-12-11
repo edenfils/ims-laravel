@@ -28,32 +28,34 @@
                       <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Company</th>
-                        <th scope="col">Created By</th>
+                        <th scope="col">Registered By</th>
                         <th scope="col">Options</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                      <th scope="row">2</th>
-                      <td>
-                        <a href="/admin/brands/2">
-                          <img src="https://cdn.imgbin.com/9/2/7/imgbin-adidas-logo-adidas-adidas-logo-9G45F5g1MtbZKnnLP8bfnDy3J.jpg" style="width:100%; max-width: 150px;" alt="">
-                        </a>
-                      </td>
-    
-                      <td>Eden Fils</td>
-                      <td>
-                        <ul class="d-flex justify-content-center">
-                          <li class="mr-3">
-                            <a href="/admin/brands/2/edit" class="text-secondary"><i class="fa fa-edit"></i></a>
-                          </li>
-                          <li>
-                            <a href="/admin/brands/2/delete" class="text-danger" onclick="return confirm('are you sure?')"><i class="ti-trash"></i></a>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-    
+                      @foreach ($brands as $brand)
+                          
+                        <tr>
+                        <th>{{$brand->id}}</th>
+                        <td>
+                          <a href="/admin/brands/2">
+                            <img src="{{$brand->img_url}}" style="width:100%; max-width: 150px;" alt="Brand Image">
+                          </a>
+                        </td>
+      
+                        <td>{{$brand->user}}</td>
+                        <td>
+                          <ul class="d-flex justify-content-center">
+                            <li class="mr-3">
+                              <a href="/admin/brands/2/edit" class="text-success" style="font-size: 22px;"><i class="fa fa-edit"></i></a>
+                            </li>
+                            <li>
+                              <a href="/admin/brands/2/delete" class="text-danger" onclick="return confirm('are you sure?')" style="font-size: 22px;"><i class="ti-trash"></i></a>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    @endforeach
                     </tbody>
                   </table>
                 </div>

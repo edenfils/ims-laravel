@@ -18,8 +18,20 @@ class BrandController extends Controller
     {
         $user = Auth::user();
 
+        $brands = DB::select('select brands.id,
+           brands.title,
+           brands.img_url,
+           brands.user_id,
+           users.name AS user
+           FROM brands
+           INNER JOIN users
+           ON brands.user_id = users.id
+           ORDER BY  brands.created_at ASC;
 
-        return view('admin/brands/all', ['user' => $user]);
+        ');
+
+
+        return view('admin/brands/all', ['user' => $user, 'brands' => $brands]);
     }
 
     /**
