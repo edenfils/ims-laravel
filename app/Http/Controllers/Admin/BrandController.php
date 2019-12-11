@@ -41,7 +41,9 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        
+        return view('admin/brands/create', ['user' => $user]);
     }
 
     /**
@@ -52,7 +54,29 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $brand = $request->all();
+        
+        DB::insert('INSERT INTO brands (
+            title,
+            img_url,
+            description,
+            user_id
+            )
+            
+            VALUES (
+              :title,
+              :img_url,
+              :description,
+              :user_id)', 
+              [
+                 'title' => $brand['title'],
+                 'img_url' => $brand['img_url'],
+                 'description' => $brand['description'],
+                 'user_id' => 1
+              ]);
+
+              return redirect()->route('brands');
     }
 
     /**
