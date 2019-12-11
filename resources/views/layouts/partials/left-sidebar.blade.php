@@ -18,6 +18,17 @@
                         </li>
                     </ul>
                 </li>
+                <li class="">
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-star"></i><span>Brands</span></a>
+                        <ul>
+                            <li class="">
+                                <a href="{{url('/admin/brands')}}">All Brands</a>
+                            </li>
+                            <li class="">
+                                    <a href="{{url('/admin/brands/create')}}">Add New Brand</a>
+                            </li>
+                        </ul>
+                    </li>
             </ul>
         </nav>
     </div>
