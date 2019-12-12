@@ -87,8 +87,29 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    
     {
-        //
+
+        $user = Auth::user();
+
+        $brand = DB::select('select 
+                brands.id, 
+                brands.title,
+                brands.img_url,
+                brands.description,
+                brands.user_id,
+                users.name AS user
+                FROM brands
+                INNER JOIN users
+                ON user_id = users.id
+                WHERE brands.id = :id
+                LIMIT 1', ['id' => $id]);
+
+        
+
+        
+
+        return view('admin/brands/show', ['user' => $user, 'id' => $id, 'brand' => $brand]);
     }
 
     /**
@@ -99,7 +120,22 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+
+        $brand = DB::select('select 
+                brands.id, 
+                brands.title,
+                brands.img_url,
+                brands.description,
+                brands.user_id
+                FROM brands
+                INNER JOIN users
+                ON user_id = users.id
+                WHERE brands.id = :id
+                LIMIT 1', ['id' => $id]);
+
+        return view('admin/brands/edit', ['user' => $user, 'id' => $id, 'brand' => $brand]);
+        
     }
 
     /**
@@ -111,7 +147,19 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::update('update brands SET
+            title = :title,
+            img_url = :img_url,
+            description = :description
+
+            WHERE id = :id' , [
+            'title' => $request->input('title'),
+            'img_url' => $request->input('img_url'),
+            'description' => $request->input('description'),
+            'id' => $id
+            ]);
+        
+            return redirect()->route('brand.show', ['id' => $id]);
     }
 
     /**

@@ -33,10 +33,10 @@ Route::get('/admin/products/{id}/delete', 'Admin\ProductController@destroy')->na
 Route::get('/admin/brands', 'Admin\BrandController@index')->name('brands')->middleware('auth');
 Route::post('/admin/brands', 'Admin\BrandController@store')->name('brand.store');
 Route::get('/admin/brands/create', 'Admin\BrandController@create')->middleware('auth');
-Route::get('/admin/brands/{id}', 'Admin\ProductController@show')->name('brand.show')->middleware('auth');
-Route::get('/admin/brands/{id}/edit', 'Admin\BrandController@edit')->middleware('auth');
+Route::get('/admin/brands/{id}', 'Admin\BrandController@show')->name('brand.show')->middleware('auth');
+Route::get('/admin/brands/{id}/edit', 'Admin\BrandController@edit')->name('brand.edit')->middleware('auth');
 Route::put('/admin/brands/{id}', 'Admin\BrandController@update')->name('brand.update');
-Route::get('/admin/brands/{id}/delete', 'Admin\BrandController@destroy')->name('product.delete')->middleware('auth');
+Route::get('/admin/brands/{id}/delete', 'Admin\BrandController@destroy')->name('brand.delete')->middleware('auth');
 
 
 

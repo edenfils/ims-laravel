@@ -38,7 +38,7 @@
                         <tr>
                         <th>{{$brand->id}}</th>
                         <td>
-                          <a href="/admin/brands/2">
+                          <a href="{{route('brand.show', ['id' => $brand->id])}}">
                             <img src="{{$brand->img_url}}" style="width:100%; max-width: 150px;" alt="Brand Image">
                           </a>
                         </td>
@@ -47,10 +47,10 @@
                         <td>
                           <ul class="d-flex justify-content-center">
                             <li class="mr-3">
-                              <a href="/admin/brands/2/edit" class="text-success" style="font-size: 22px;"><i class="fa fa-edit"></i></a>
+                              <a href="{{route('brand.edit', ['id' => $brand->id])}}" class="text-success" style="font-size: 22px;"><i class="fa fa-edit"></i></a>
                             </li>
                             <li>
-                              <a href="/admin/brands/2/delete" class="text-danger" onclick="return confirm('are you sure?')" style="font-size: 22px;"><i class="ti-trash"></i></a>
+                              <a href="{{route('brand.delete', ['id' => $brand->id])}}" class="text-danger" onclick="return confirm('are you sure?')" style="font-size: 22px;"><i class="ti-trash"></i></a>
                             </li>
                           </ul>
                         </td>
