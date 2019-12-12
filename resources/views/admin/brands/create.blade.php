@@ -23,20 +23,49 @@
                         <form action="{{route('brand.store')}}" method="POST">
                                 @csrf
                         <div class="form-group">
-                            <label for="example-text-input" class="col-form-label">Title</label>
-                        <input class="form-control" type="text" value="{{old('title')}}" id="example-text-input" name="title">
+                        <label for="example-text-input" class="col-form-label">Title</label>
+                        <input 
+                            class="form-control @error('title') is-invalid @enderror" 
+                            type="text" 
+                            value="{{old('title')}}" 
+                            id="example-text-input" 
+                            name="title"
+                        >
+                        @error('title')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                         </div>
   
                         <div class="form-group">
                                 <label for="example-text-input" class="col-form-label">Image URL</label>
-                                <input class="form-control" type="text" value="{{old('img_url')}}" id="example-text-input" name="img_url">
+                                <input 
+                                
+                                class="form-control @error('img_url') is-invalid @enderror"
+                                type="text" 
+                                value="{{old('img_url')}}" id="example-text-input" 
+                                name="img_url"
+                                >
+
+                                @error('img_url')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
   
                       
   
                         <div class="form-group">
                             <label for="example-text-input" class="col-form-label">Description</label>
-                            <textarea class="form-control" name="description" id="" cols="30" rows="10">{{old('description')}}</textarea>
+                            <textarea 
+                                class="form-control @error('description') is-invalid @enderror" 
+                                name="description" 
+                                id="" 
+                                cols="30" 
+                                rows="10"
+                            >{{old('description')}}</textarea>
+
+                            @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mb-3">Add Brand</button>
