@@ -50,9 +50,11 @@ class ProductController extends Controller
     {   
         $user = Auth::user();
 
+        $brands = DB::select('select brands.id,
+            brands.title FROM brands
+        ');
 
-
-        return view('admin/products/create', compact('user'));
+        return view('admin/products/create', ['user' => $user, 'brands' => $brands]);
     }
 
     /**
@@ -90,7 +92,8 @@ class ProductController extends Controller
                 $product['img_url'], 
                 $product['material'], 
                 $product['description'], 
-                1 , $product['qty'], 
+                $product['brand_id'] , 
+                $product['qty'], 
                 $product['size'], 
                 1 
             ]);

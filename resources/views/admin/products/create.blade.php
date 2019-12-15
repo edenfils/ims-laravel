@@ -143,18 +143,11 @@
                                     name="brand_id"
                                 >           
                                             <option selected="selected">Choose Brand</option>
-                                            <option value="2">
-                                          Adidas Originals
-                                          </option>
-                                          <option value="3">
-                                          Jordan
-                                          </option>
-                                          <option value="1">
-                                          Nike
-                                          </option>
-                                          <option value="4">
-                                          Puma
-                                          </option>
+                                            @foreach ( $brands as $brand )
+                                            <option value="{{ $brand->id}}">
+                                                {{$brand->title}}
+                                            </option>
+                                            @endforeach
   
   
                                 </select>

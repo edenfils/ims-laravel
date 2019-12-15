@@ -170,6 +170,10 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+
+        DB::delete('DELETE FROM brands WHERE id = :id', ['id' => $id]);
+
+        return redirect()->route('brands');
     }
 }
