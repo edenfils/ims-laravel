@@ -18,7 +18,12 @@
 Route::get('/', 'PageController@index');
 
 
-/***** Products ROUTES *****/
+
+
+/**
+     *  Products ROUTES
+     */
+/***** *****/
 Route::get('/admin/products', 'Admin\ProductController@index')->name('products')->middleware('auth');
 Route::post('/admin/products', 'Admin\ProductController@store')->name('product.store');
 Route::get('/admin/products/create', 'Admin\ProductController@create')->middleware('auth');
@@ -28,7 +33,10 @@ Route::put('/admin/products/{id}', 'Admin\ProductController@update')->name('prod
 Route::get('/admin/products/{id}/delete', 'Admin\ProductController@destroy')->name('product.delete')->middleware('auth');
 
 
-/***** Products ROUTES *****/
+/**
+     *  Brands ROUTES
+     */
+/***** *****/
 
 Route::get('/admin/brands', 'Admin\BrandController@index')->name('brands')->middleware('auth');
 Route::post('/admin/brands', 'Admin\BrandController@store')->name('brand.store');
@@ -39,7 +47,25 @@ Route::put('/admin/brands/{id}', 'Admin\BrandController@update')->name('brand.up
 Route::get('/admin/brands/{id}/delete', 'Admin\BrandController@destroy')->name('brand.delete')->middleware('auth');
 
 
+/**
+     *  Orders ROUTES
+     */
+/***** *****/
 
+
+Route::get('/admin/orders', 'Admin\OrderController@index')->name('orders')->middleware('auth');
+Route::post('/admin/orders', 'Admin\OrderController@store')->name('order.store');
+Route::get('/admin/orders/create', 'Admin\OrderController@create')->middleware('auth');
+Route::get('/admin/orders/{id}', 'Admin\OrderController@show')->name('order.show')->middleware('auth');
+Route::get('/admin/orders/{id}/edit', 'Admin\OrderController@edit')->name('order.edit')->middleware('auth');
+Route::put('/admin/orders/{id}', 'Admin\OrderController@update')->name('order.update');
+Route::get('/admin/orders/{id}/delete', 'Admin\OrderController@destroy')->name('order.delete')->middleware('auth');
+
+
+/**
+     *  Authentication Routes
+     */
+/***** *****/
 
 Auth::routes();
 

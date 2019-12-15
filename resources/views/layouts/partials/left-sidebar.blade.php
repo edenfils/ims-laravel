@@ -29,6 +29,18 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="">
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-cart-plus"></i><span>Orders</span></a>
+                        <ul>
+                            <li class="">
+                                <a href="{{url('/admin/orders')}}">All Orders</a>
+                            </li>
+                            <li class="">
+                                    <a href="{{url('/admin/orders/create')}}">Add New Order</a>
+                            </li>
+                        </ul>
+                    </li>
             </ul>
         </nav>
     </div>
