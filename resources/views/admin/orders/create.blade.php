@@ -16,6 +16,10 @@
     </div>
 @endsection
 
+@section('javascripts')
+    <script src="/js/components/OrdersForm.js"></script>
+@endsection
+
 
 @section('content')
 
@@ -23,9 +27,10 @@
             <div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-
+                    
                     <form action="{{route('product.store')}}" method="POST">
                             @csrf
+                        <div id="ordersForm"></div>
                         <div class="form-group">
                             <label for="example-text-input" class="col-form-label">Title</label>
                             

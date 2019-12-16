@@ -274,6 +274,8 @@
     <!-- others plugins -->
     <script src="/js/plugins.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="/js/components/vendor.js"></script>
+    @yield('javascritps')
 </body>
 
 </html>
