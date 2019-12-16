@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 233:
+/***/ 234:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16,7 +16,13 @@ var _reactDom = __webpack_require__(101);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _reactAddonsUpdate = __webpack_require__(231);
+
+var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -38,12 +44,45 @@ var Layout = function (_Component) {
             args[_key] = arguments[_key];
         }
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Layout.__proto__ || Object.getPrototypeOf(Layout)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Layout.__proto__ || Object.getPrototypeOf(Layout)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+
+            form: {
+                f_name: '',
+                l_name: '',
+                address: '',
+                address_2: '',
+                city: 'NY',
+                country: 'USA',
+                payment_type: 'paypal',
+                zipcode: ''
+            }
+
+        }, _this.change = function (event) {
+            var name = event.target.name;
+            var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+
+            var currentState = _this.state;
+
+            var newState = (0, _reactAddonsUpdate2.default)(currentState, {
+                form: {
+                    $merge: _defineProperty({}, name, value)
+                }
+            });
+
+            _this.setState(newState, function () {
+                console.log(_this.state);
+            });
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
+
+    // keep track of the input fileds and update the state
+
 
     _createClass(Layout, [{
         key: "render",
         value: function render() {
+            var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4;
+
             return _react2.default.createElement(
                 "form",
                 { "data-reactroot": "", action: "/admin/products", method: "POST" },
@@ -60,10 +99,11 @@ var Layout = function (_Component) {
                         ),
                         _react2.default.createElement("input", {
                             type: "text",
-                            value: "",
+                            value: this.state.form.f_name,
                             className: "form-control",
                             id: "example-text-input",
-                            name: "f_name"
+                            name: "f_name",
+                            onChange: this.change
                         })
                     ),
                     _react2.default.createElement(
@@ -76,10 +116,11 @@ var Layout = function (_Component) {
                         ),
                         _react2.default.createElement("input", {
                             type: "text",
-                            value: "",
                             className: "form-control",
                             id: "example-text-input",
-                            name: "l_name"
+                            name: "l_name",
+                            value: this.state.form.l_name,
+                            onChange: this.change
                         })
                     )
                 ),
@@ -94,13 +135,13 @@ var Layout = function (_Component) {
                             { htmlFor: "example-text-input", className: "col-form-label" },
                             "Address"
                         ),
-                        _react2.default.createElement("input", {
+                        _react2.default.createElement("input", (_React$createElement = {
                             type: "text",
                             value: "",
                             className: "form-control",
                             id: "example-text-input",
                             name: "address"
-                        })
+                        }, _defineProperty(_React$createElement, "value", this.state.form.address), _defineProperty(_React$createElement, "onChange", this.change), _React$createElement))
                     ),
                     _react2.default.createElement(
                         "div",
@@ -110,13 +151,13 @@ var Layout = function (_Component) {
                             { htmlFor: "example-text-input", className: "col-form-label" },
                             "Address 2"
                         ),
-                        _react2.default.createElement("input", {
+                        _react2.default.createElement("input", (_React$createElement2 = {
                             type: "text",
                             value: "",
                             className: "form-control",
                             id: "example-text-input",
                             name: "address_2"
-                        })
+                        }, _defineProperty(_React$createElement2, "value", this.state.form.address_2), _defineProperty(_React$createElement2, "onChange", this.change), _React$createElement2))
                     )
                 ),
                 _react2.default.createElement(
@@ -130,13 +171,13 @@ var Layout = function (_Component) {
                             { htmlFor: "example-text-input", className: "col-form-label" },
                             "City"
                         ),
-                        _react2.default.createElement("input", {
+                        _react2.default.createElement("input", (_React$createElement3 = {
                             type: "text",
                             value: "",
                             className: "form-control",
                             id: "example-text-input",
                             name: "city"
-                        })
+                        }, _defineProperty(_React$createElement3, "value", this.state.form.city), _defineProperty(_React$createElement3, "onChange", this.change), _React$createElement3))
                     ),
                     _react2.default.createElement(
                         "div",
@@ -196,13 +237,13 @@ var Layout = function (_Component) {
                             { className: "col-form-label" },
                             "ZipCode"
                         ),
-                        _react2.default.createElement("input", {
+                        _react2.default.createElement("input", (_React$createElement4 = {
                             type: "text",
                             value: "",
                             className: "form-control",
                             id: "example-text-input",
                             name: "zipcode"
-                        })
+                        }, _defineProperty(_React$createElement4, "value", this.state.form.zipcode), _defineProperty(_React$createElement4, "onChange", this.change), _React$createElement4))
                     ),
                     _react2.default.createElement(
                         "div",
@@ -424,4 +465,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), ordersFor
 
 /***/ })
 
-},[233]);
+},[234]);

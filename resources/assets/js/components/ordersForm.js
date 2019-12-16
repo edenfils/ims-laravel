@@ -1,9 +1,44 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import update from "react-addons-update";
 
 class Layout extends Component {
-    state = {};
+    state = {
 
+        form : {
+          f_name: '',
+          l_name: '',
+          address: '',
+          address_2: '',
+          city: 'NY',
+          country: 'USA',
+          payment_type: 'paypal',
+          zipcode: ''
+        }
+
+    };
+
+
+
+  // keep track of the input fileds and update the state
+    change = (event) => {
+      let name = event.target.name
+      let value = (event.target.type === 'checkbox') ? event.target.checked: event.target.value
+
+      let currentState = this.state
+
+      let newState = update(currentState, {
+              form : {
+                  $merge: {
+                    [name] : value
+                  }
+              }
+      })
+
+      this.setState(newState, () => {
+        console.log(this.state)
+      })
+    }
 
     render() {
         return (
@@ -15,10 +50,11 @@ class Layout extends Component {
                         </label>
                         <input
                             type="text"
-                            value=""
+                            value={this.state.form.f_name}
                             className="form-control"
                             id="example-text-input"
                             name="f_name"
+                            onChange={this.change}
                         />
                     </div>
                     <div className="col-sm-12 col-md-6">
@@ -27,10 +63,11 @@ class Layout extends Component {
                         </label>
                         <input
                             type="text"
-                            value=""
                             className="form-control"
                             id="example-text-input"
                             name="l_name"
+                            value={this.state.form.l_name}
+                            onChange={this.change}
                         />
                     </div>
                 </div>
@@ -45,6 +82,8 @@ class Layout extends Component {
                             className="form-control"
                             id="example-text-input"
                             name="address"
+                            value={this.state.form.address}
+                            onChange={this.change}
                         />
                     </div>
                     <div className="col-sm-12 col-md-6">
@@ -57,6 +96,8 @@ class Layout extends Component {
                             className="form-control"
                             id="example-text-input"
                             name="address_2"
+                            value={this.state.form.address_2}
+                            onChange={this.change}
                         />
                     </div>
                 </div>
@@ -71,6 +112,8 @@ class Layout extends Component {
                             className="form-control"
                             id="example-text-input"
                             name="city"
+                            value={this.state.form.city}
+                            onChange={this.change}
                         />
                     </div>
                     <div className="col-sm-12 col-md-3">
@@ -101,6 +144,8 @@ class Layout extends Component {
                             className="form-control"
                             id="example-text-input"
                             name="zipcode"
+                            value={this.state.form.zipcode}
+                            onChange={this.change}
                         />
                     </div>
                     <div className="col-sm-12 col-md-6">
