@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -23,8 +25,10 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+    
     {
-        //
+        $user = Auth::user();
+        return view('admin/orders/create', ['user' => $user]);
     }
 
     /**
