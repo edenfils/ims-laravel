@@ -63,6 +63,16 @@ Route::get('/admin/orders/{id}/delete', 'Admin\OrderController@destroy')->name('
 
 
 /**
+     *  API Routes
+     */
+/***** *****/
+
+
+Route::get('/api/admin/products', 'Api\ProductController@index')->name('products.api')->middleware('auth');
+
+
+
+/**
      *  Authentication Routes
      */
 /***** *****/

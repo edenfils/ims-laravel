@@ -35,6 +35,18 @@ export default class Modal extends Component {
         this.props.closeModal()
     }
 
+    showProducts = () => {
+        if(this.props.allProducts != '') {
+            return this.props.allProducts.map((item, i) => {
+                return (
+                    <option value={item.id} key={i}>
+                        {item.title}
+                    </option>
+                )
+            })
+        }
+    }
+
     render() {
         return (
             <div className={`popup ${this.props.showModal === true ? 'active': ''}`}>
@@ -50,25 +62,7 @@ export default class Modal extends Component {
                                             value={this.state.modalForm.product}
                                             onChange={this.change}
                                         >
-                                            <option value="none">
-                                                Select Sneaker
-                                            </option>
-                                            <option value="1">
-                                                Jordan Sneaker Yeezy red
-                                            </option>
-                                            <option value="3">
-                                                Jordan Sneaker Yeezy white
-                                            </option>
-                                            <option value="4">
-                                                Jordan Sneaker Yeezy white
-                                            </option>
-                                            <option value="11">
-                                                Jordan Air Jordan 1 High OG
-                                            </option>
-                                            <option value="12">
-                                                Adidas Yeezy Boost 350 V2
-                                                Reflective
-                                            </option>
+                                           {this.showProducts()}
                                         </select>
                                     </div>
                                     <div className="form-group">

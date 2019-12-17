@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 231:
+/***/ 239:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12,11 +12,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(76);
+var _react = __webpack_require__(77);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactAddonsUpdate = __webpack_require__(150);
+var _reactAddonsUpdate = __webpack_require__(152);
 
 var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
@@ -66,6 +66,16 @@ var Modal = function (_Component) {
             });
         }, _this.cancelBtn = function () {
             _this.props.closeModal();
+        }, _this.showProducts = function () {
+            if (_this.props.allProducts != '') {
+                return _this.props.allProducts.map(function (item, i) {
+                    return _react2.default.createElement(
+                        "option",
+                        { value: item.id, key: i },
+                        item.title
+                    );
+                });
+            }
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -108,36 +118,7 @@ var Modal = function (_Component) {
                                         value: this.state.modalForm.product,
                                         onChange: this.change
                                     },
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "none" },
-                                        "Select Sneaker"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "1" },
-                                        "Jordan Sneaker Yeezy red"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "3" },
-                                        "Jordan Sneaker Yeezy white"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "4" },
-                                        "Jordan Sneaker Yeezy white"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "11" },
-                                        "Jordan Air Jordan 1 High OG"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "12" },
-                                        "Adidas Yeezy Boost 350 V2 Reflective"
-                                    )
+                                    this.showProducts()
                                 )
                             ),
                             _react2.default.createElement(
@@ -232,7 +213,7 @@ exports.default = Modal;
 
 /***/ }),
 
-/***/ 237:
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -240,27 +221,33 @@ exports.default = Modal;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(76);
+var _react = __webpack_require__(77);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(101);
+var _reactDom = __webpack_require__(102);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactAddonsUpdate = __webpack_require__(150);
+var _reactAddonsUpdate = __webpack_require__(152);
 
 var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
-var _countryList = __webpack_require__(233);
+var _countryList = __webpack_require__(241);
 
 var _countryList2 = _interopRequireDefault(_countryList);
 
-var _Modal = __webpack_require__(231);
+var _Modal = __webpack_require__(239);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
+var _axios = __webpack_require__(238);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -270,7 +257,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UsaStates = __webpack_require__(235).UsaStates;
+var UsaStates = __webpack_require__(243).UsaStates;
 
 var Layout = function (_Component) {
     _inherits(Layout, _Component);
@@ -298,7 +285,8 @@ var Layout = function (_Component) {
                 payment_type: 'paypal',
                 zipcode: ''
             },
-            showModal: false
+            showModal: false,
+            allProducts: ''
 
         }, _this.showModal = function () {
             _this.setState({
@@ -341,10 +329,64 @@ var Layout = function (_Component) {
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
-    // keep track of the input fileds and update the state
-
-
     _createClass(Layout, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var self = this;
+            self.getAllProducts();
+        }
+
+        // keep track of the input fileds and update the state
+
+    }, {
+        key: "getAllProducts",
+        value: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                var _this2 = this;
+
+                var allProducts;
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.prev = 0;
+                                _context.next = 3;
+                                return _axios2.default.get('/api/admin/products');
+
+                            case 3:
+                                allProducts = _context.sent;
+
+                                allProducts = allProducts.data;
+                                console.log(allProducts);
+                                this.setState({
+                                    allProducts: allProducts
+                                }, function () {
+                                    console.log(_this2.state);
+                                });
+                                _context.next = 12;
+                                break;
+
+                            case 9:
+                                _context.prev = 9;
+                                _context.t0 = _context["catch"](0);
+
+                                console.log(_context.t0);
+
+                            case 12:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this, [[0, 9]]);
+            }));
+
+            function getAllProducts() {
+                return _ref2.apply(this, arguments);
+            }
+
+            return getAllProducts;
+        }()
+    }, {
         key: "render",
         value: function render() {
             var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4;
@@ -548,7 +590,7 @@ var Layout = function (_Component) {
                             )
                         )
                     ),
-                    _react2.default.createElement(_Modal2.default, { showModal: this.state.showModal, closeModal: this.showModal })
+                    _react2.default.createElement(_Modal2.default, { showModal: this.state.showModal, closeModal: this.showModal, allProducts: this.state.allProducts })
                 ),
                 _react2.default.createElement(
                     "div",
@@ -572,4 +614,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), ordersFor
 
 /***/ })
 
-},[237]);
+},[262]);

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import update from "react-addons-update";
 import countries from 'country-list';
 import Modal from './Modal';
-
+import axios from 'axios';
 var UsaStates = require('usa-states').UsaStates;
 
 class Layout extends Component {
@@ -20,9 +20,15 @@ class Layout extends Component {
           zipcode: ''
         },
         showModal: false,
+        allProducts: ''
 
     };
 
+
+    componentDidMount() {
+        const self = this
+        self.getAllProducts()
+    }
 
     showModal = () => {
         this.setState({
@@ -77,6 +83,25 @@ class Layout extends Component {
             )
         })
     }
+
+
+    async getAllProducts() {
+        try {
+            let allProducts = await axios.get('/api/admin/products')
+            allProducts = allProducts.data
+            console.log(allProducts)
+            this.setState({
+                allProducts
+            }, () => {
+                console.log(this.state)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    
     
 
     render() {
@@ -204,7 +229,7 @@ class Layout extends Component {
                             </div>
                         </div>
                     </div>
-                    <Modal showModal={this.state.showModal} closeModal={this.showModal}/>
+                    <Modal showModal={this.state.showModal} closeModal={this.showModal} allProducts={this.state.allProducts}/>
                 </div>
                 <div className="form-group">
                     <div className="btn btn-primary mb-3">Add Product</div>
