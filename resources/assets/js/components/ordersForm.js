@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import update from "react-addons-update";
 import countries from 'country-list';
+import Modal from './Modal';
 
 var UsaStates = require('usa-states').UsaStates;
 
@@ -17,9 +18,17 @@ class Layout extends Component {
           country: 'USA',
           payment_type: 'paypal',
           zipcode: ''
-        }
+        },
+        showModal: false,
 
     };
+
+
+    showModal = () => {
+        this.setState({
+            showModal: !this.state.showModal
+        })
+    }
 
 
 
@@ -189,72 +198,13 @@ class Layout extends Component {
                     </div>
                     <div className="col-md-4">
                         <div className="item-box">
-                            <div className="add-item-button">
+                            <div className="add-item-button" onClick={this.showModal}>
                                 <span>+</span>
                                 Add new Item
                             </div>
                         </div>
                     </div>
-                    <div className="popup">
-                        <div className="container-box">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <h2>Add Item to Order</h2>
-                                    <div className="form-group">
-                                        <label htmlFor="">Product</label>
-                                        <select
-                                            className="custom-select"
-                                            name="product"
-                                        >
-                                            <option value="none">
-                                                Select Sneaker
-                                            </option>
-                                            <option value="1">
-                                                Jordan Sneaker Yeezy red
-                                            </option>
-                                            <option value="3">
-                                                Jordan Sneaker Yeezy white
-                                            </option>
-                                            <option value="4">
-                                                Jordan Sneaker Yeezy white
-                                            </option>
-                                            <option value="11">
-                                                Jordan Air Jordan 1 High OG
-                                            </option>
-                                            <option value="12">
-                                                Adidas Yeezy Boost 350 V2
-                                                Reflective
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="">Quantity</label>
-                                        <select
-                                            className="custom-select"
-                                            name="qty"
-                                        >
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </select>
-                                    </div>
-                                    <div className="add-btn btn btn-primary mb-3">
-                                        save item
-                                    </div>
-                                    <div className="add-btn  btn btn-danger mb-3">
-                                        cancel
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Modal showModal={this.state.showModal} closeModal={this.showModal}/>
                 </div>
                 <div className="form-group">
                     <div className="btn btn-primary mb-3">Add Product</div>
