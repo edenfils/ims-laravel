@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import update from "react-addons-update";
+import countries from 'country-list';
+
+var UsaStates = require('usa-states').UsaStates;
 
 class Layout extends Component {
     state = {
@@ -39,6 +42,33 @@ class Layout extends Component {
         console.log(this.state)
       })
     }
+
+
+    showStates = () => {
+
+        let usStates = new UsaStates();
+        return usStates.states.map((item, i) => {
+            return (
+                <option value={item.abbreviation} key={i}>
+                    {item.name}
+                </option>
+
+            )
+            
+        })
+    }
+
+    showCountries = () => {
+        let allCountries = countries.getData();
+        return allCountries.map((item, i) => {
+            return (
+                <option value={item.code} key={i}>
+                    {item.name}
+                </option>
+            )
+        })
+    }
+    
 
     render() {
         return (
@@ -120,18 +150,15 @@ class Layout extends Component {
                         <label htmlFor="example-text-input" className="col-form-label">
                             State
                         </label>
-                        <select className="form-control" name="state">
-                            <option value="AL">Alabama</option>
-
-                            <option value="WY">Wyoming</option>
+                        <select className="form-control" name="state" 
+                        onChange={this.change}>
+                            {this.showStates()}
                         </select>
                     </div>
                     <div className="col-sm-12 col-md-6">
                         <label className="col-form-label">Country</label>
-                        <select className="form-control" name="country">
-                            <option value="AF">Afghanistan</option>
-
-                            <option value="ZW">Zimbabwe</option>
+                        <select className="form-control" name="country" onChange={this.change}>
+                            {this.showCountries()}
                         </select>
                     </div>
                 </div>
@@ -150,7 +177,7 @@ class Layout extends Component {
                     </div>
                     <div className="col-sm-12 col-md-6">
                         <label className="col-form-label">Payment Type</label>
-                        <select className="form-control" name="payment_type">
+                        <select className="form-control" name="payment_type" onChange={this.change}>
                             <option value="paypal">Paypal</option>
                             <option value="credit_card">Credit Card</option>
                         </select>

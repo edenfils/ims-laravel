@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 234:
+/***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16,9 +16,13 @@ var _reactDom = __webpack_require__(101);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactAddonsUpdate = __webpack_require__(231);
+var _reactAddonsUpdate = __webpack_require__(232);
 
 var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+
+var _countryList = __webpack_require__(231);
+
+var _countryList2 = _interopRequireDefault(_countryList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29,6 +33,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UsaStates = __webpack_require__(234).UsaStates;
 
 var Layout = function (_Component) {
     _inherits(Layout, _Component);
@@ -71,6 +77,25 @@ var Layout = function (_Component) {
 
             _this.setState(newState, function () {
                 console.log(_this.state);
+            });
+        }, _this.showStates = function () {
+
+            var usStates = new UsaStates();
+            return usStates.states.map(function (item, i) {
+                return _react2.default.createElement(
+                    "option",
+                    { value: item.abbreviation, key: i },
+                    item.name
+                );
+            });
+        }, _this.showCountries = function () {
+            var allCountries = _countryList2.default.getData();
+            return allCountries.map(function (item, i) {
+                return _react2.default.createElement(
+                    "option",
+                    { value: item.code, key: i },
+                    item.name
+                );
             });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -189,17 +214,9 @@ var Layout = function (_Component) {
                         ),
                         _react2.default.createElement(
                             "select",
-                            { className: "form-control", name: "state" },
-                            _react2.default.createElement(
-                                "option",
-                                { value: "AL" },
-                                "Alabama"
-                            ),
-                            _react2.default.createElement(
-                                "option",
-                                { value: "WY" },
-                                "Wyoming"
-                            )
+                            { className: "form-control", name: "state",
+                                onChange: this.change },
+                            this.showStates()
                         )
                     ),
                     _react2.default.createElement(
@@ -212,17 +229,8 @@ var Layout = function (_Component) {
                         ),
                         _react2.default.createElement(
                             "select",
-                            { className: "form-control", name: "country" },
-                            _react2.default.createElement(
-                                "option",
-                                { value: "AF" },
-                                "Afghanistan"
-                            ),
-                            _react2.default.createElement(
-                                "option",
-                                { value: "ZW" },
-                                "Zimbabwe"
-                            )
+                            { className: "form-control", name: "country", onChange: this.change },
+                            this.showCountries()
                         )
                     )
                 ),
@@ -255,7 +263,7 @@ var Layout = function (_Component) {
                         ),
                         _react2.default.createElement(
                             "select",
-                            { className: "form-control", name: "payment_type" },
+                            { className: "form-control", name: "payment_type", onChange: this.change },
                             _react2.default.createElement(
                                 "option",
                                 { value: "paypal" },
@@ -465,4 +473,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), ordersFor
 
 /***/ })
 
-},[234]);
+},[236]);
