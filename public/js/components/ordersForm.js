@@ -50,9 +50,9 @@ var Modal = function (_Component) {
                 qty: 1
             }
         }, _this.change = function (event) {
+            var self = _this.state;
             var name = event.target.name;
             var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-
             var currentState = _this.state;
 
             var newState = (0, _reactAddonsUpdate2.default)(currentState, {
@@ -76,6 +76,17 @@ var Modal = function (_Component) {
                     );
                 });
             }
+        }, _this.saveItemBtn = function () {
+            var product = _this.props.allProducts.filter(function (product) {
+                return product.id == _this.state.modalForm.product;
+            });
+            var itemData = {
+                productInfo: product[0],
+                qtyBuying: _this.state.modalForm.qty
+            };
+
+            _this.props.addItemToList(itemData);
+            _this.props.closeModal();
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -118,6 +129,11 @@ var Modal = function (_Component) {
                                         value: this.state.modalForm.product,
                                         onChange: this.change
                                     },
+                                    _react2.default.createElement(
+                                        "option",
+                                        { value: "" },
+                                        "Select Product"
+                                    ),
                                     this.showProducts()
                                 )
                             ),
@@ -139,6 +155,11 @@ var Modal = function (_Component) {
                                     },
                                     _react2.default.createElement(
                                         "option",
+                                        { value: "none" },
+                                        "Select Quantity"
+                                    ),
+                                    _react2.default.createElement(
+                                        "option",
                                         { value: "1" },
                                         "1"
                                     ),
@@ -151,47 +172,12 @@ var Modal = function (_Component) {
                                         "option",
                                         { value: "3" },
                                         "3"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "4" },
-                                        "4"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "5" },
-                                        "5"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "6" },
-                                        "6"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "7" },
-                                        "7"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "8" },
-                                        "8"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "9" },
-                                        "9"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "10" },
-                                        "10"
                                     )
                                 )
                             ),
                             _react2.default.createElement(
                                 "div",
-                                { className: "add-btn btn btn-primary mb-3" },
+                                { className: "add-btn btn btn-primary mb-3", onClick: this.saveItemBtn },
                                 "save item"
                             ),
                             _react2.default.createElement(
@@ -286,7 +272,8 @@ var Layout = function (_Component) {
                 zipcode: ''
             },
             showModal: false,
-            allProducts: ''
+            allProducts: '',
+            allItems: []
 
         }, _this.showModal = function () {
             _this.setState({
@@ -325,6 +312,18 @@ var Layout = function (_Component) {
                     { value: item.code, key: i },
                     item.name
                 );
+            });
+        }, _this.addItemToList = function (item) {
+            var allItems = _this.state.allItems;
+            var oldState = _this.state;
+
+            var newState = (0, _reactAddonsUpdate2.default)(oldState, {
+                allItems: { $push: [item] }
+            });
+
+            _this.setState(newState, function () {
+                console.log('New State');
+                console.log(_this.state);
             });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -590,7 +589,7 @@ var Layout = function (_Component) {
                             )
                         )
                     ),
-                    _react2.default.createElement(_Modal2.default, { showModal: this.state.showModal, closeModal: this.showModal, allProducts: this.state.allProducts })
+                    _react2.default.createElement(_Modal2.default, { showModal: this.state.showModal, closeModal: this.showModal, allProducts: this.state.allProducts, addItemToList: this.addItemToList })
                 ),
                 _react2.default.createElement(
                     "div",

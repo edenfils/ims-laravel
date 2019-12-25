@@ -4,7 +4,7 @@ import update from "react-addons-update";
 export default class Modal extends Component {
     state = {
         modalForm: {
-            product: '',
+            product:'',
             qty: 1
         }
     };
@@ -13,9 +13,9 @@ export default class Modal extends Component {
 
   // keep track of the input fileds and update the state
     change = (event) => {
+      let self = this.state
       let name = event.target.name
       let value = (event.target.type === 'checkbox') ? event.target.checked: event.target.value
-
       let currentState = this.state
 
       let newState = update(currentState, {
@@ -25,6 +25,7 @@ export default class Modal extends Component {
                   }
               }
       })
+
 
       this.setState(newState, () => {
         console.log(this.state)
@@ -47,6 +48,19 @@ export default class Modal extends Component {
         }
     }
 
+    saveItemBtn = () => {
+        let product = this.props.allProducts.filter((product) => 
+            product.id == this.state.modalForm.product
+        )
+        let itemData = {
+            productInfo: product[0],
+            qtyBuying: this.state.modalForm.qty
+        }
+
+        this.props.addItemToList(itemData)
+        this.props.closeModal();
+    }
+
     render() {
         return (
             <div className={`popup ${this.props.showModal === true ? 'active': ''}`}>
@@ -62,6 +76,7 @@ export default class Modal extends Component {
                                             value={this.state.modalForm.product}
                                             onChange={this.change}
                                         >
+                                            <option value="">Select Product</option>
                                            {this.showProducts()}
                                         </select>
                                     </div>
@@ -73,19 +88,14 @@ export default class Modal extends Component {
                                             value={this.state.modalForm.qty}
                                             onChange={this.change}
                                         >
+                                            <option value="none">Select Quantity</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
+                                             
                                         </select>
                                     </div>
-                                    <div className="add-btn btn btn-primary mb-3">
+                                    <div className="add-btn btn btn-primary mb-3" onClick={this.saveItemBtn}>
                                         save item
                                     </div>
                                     <div className="add-btn  btn btn-danger mb-3" onClick={this.cancelBtn}>

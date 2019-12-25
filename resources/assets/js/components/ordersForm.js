@@ -20,7 +20,8 @@ class Layout extends Component {
           zipcode: ''
         },
         showModal: false,
-        allProducts: ''
+        allProducts: '',
+        allItems: []
 
     };
 
@@ -41,7 +42,7 @@ class Layout extends Component {
   // keep track of the input fileds and update the state
     change = (event) => {
       let name = event.target.name
-      let value = (event.target.type === 'checkbox') ? event.target.checked: event.target.value
+      let value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
 
       let currentState = this.state
 
@@ -99,6 +100,22 @@ class Layout extends Component {
             console.log(error)
         }
     }
+
+
+    addItemToList = item => {
+        let allItems = this.state.allItems
+        let oldState = this.state
+
+        let newState = update(oldState, {
+            allItems:  {$push: [item]}
+        })
+
+        this.setState(newState, () => {
+            console.log('New State')
+            console.log(this.state)
+        })
+    }
+
 
 
     
@@ -229,7 +246,7 @@ class Layout extends Component {
                             </div>
                         </div>
                     </div>
-                    <Modal showModal={this.state.showModal} closeModal={this.showModal} allProducts={this.state.allProducts}/>
+                    <Modal showModal={this.state.showModal} closeModal={this.showModal} allProducts={this.state.allProducts} addItemToList={this.addItemToList}/>
                 </div>
                 <div className="form-group">
                     <div className="btn btn-primary mb-3">Add Product</div>

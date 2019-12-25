@@ -27,8 +27,9 @@
     <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <div id="ordersForm"></div>
                     @csrf
+                    <div id="ordersForm"></div>
+                    
                 </div>
             </div>
     </div>
