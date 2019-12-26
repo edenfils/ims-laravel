@@ -25,6 +25,13 @@ class Layout extends Component {
 
     };
 
+    constructor() {
+        super();
+        this.submitForm = this.submitForm.bind(this)
+    }
+    
+    
+
 
     componentDidMount() {
         const self = this
@@ -152,6 +159,22 @@ class Layout extends Component {
         this.setState(newState)
     }
 
+    async submitForm() {
+        try {
+            let sumbit = await axios.post('/api/admin/products', {
+                form: this.state.form,
+                allItems: this.state.allItems
+            })
+
+            console.log(sumbit)
+
+        } catch (error) {
+            console.log('error submitting')
+            console.log(error)
+            console.log('error sumbitting')
+        }
+    }
+
 
 
 
@@ -160,7 +183,7 @@ class Layout extends Component {
 
     render() {
         return (
-            <form data-reactroot="" action="/admin/products" method="POST">
+            <form data-reactroot="" action="/api/admin/products" method="POST">
                 <div className="row form-group">
                     <div className="col-sm-12 col-md-6">
                         <label htmlFor="example-text-input" className="col-form-label">
@@ -289,7 +312,7 @@ class Layout extends Component {
                     <Modal showModal={this.state.showModal} closeModal={this.showModal} allProducts={this.state.allProducts} addItemToList={this.addItemToList}/>
                 </div>
                 <div className="form-group">
-                    <div className="btn btn-primary mb-3">Add Product</div>
+                    <div className="btn btn-primary mb-3" onClick={this.submitForm}>Add Product</div>
                 </div>
             </form>
         );

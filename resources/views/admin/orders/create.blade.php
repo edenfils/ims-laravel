@@ -29,7 +29,6 @@
                 <div class="card-body">
                     @csrf
                     <div id="ordersForm"></div>
-                    
                 </div>
             </div>
     </div>

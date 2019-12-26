@@ -249,17 +249,11 @@ var Layout = function (_Component) {
     _inherits(Layout, _Component);
 
     function Layout() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
         _classCallCheck(this, Layout);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+        var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Layout.__proto__ || Object.getPrototypeOf(Layout)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        _this.state = {
 
             form: {
                 f_name: '',
@@ -275,11 +269,15 @@ var Layout = function (_Component) {
             allProducts: '',
             allItems: []
 
-        }, _this.showModal = function () {
+        };
+
+        _this.showModal = function () {
             _this.setState({
                 showModal: !_this.state.showModal
             });
-        }, _this.change = function (event) {
+        };
+
+        _this.change = function (event) {
             var name = event.target.name;
             var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
@@ -294,7 +292,9 @@ var Layout = function (_Component) {
             _this.setState(newState, function () {
                 console.log(_this.state);
             });
-        }, _this.showStates = function () {
+        };
+
+        _this.showStates = function () {
 
             var usStates = new UsaStates();
             return usStates.states.map(function (item, i) {
@@ -304,7 +304,9 @@ var Layout = function (_Component) {
                     item.name
                 );
             });
-        }, _this.showCountries = function () {
+        };
+
+        _this.showCountries = function () {
             var allCountries = _countryList2.default.getData();
             return allCountries.map(function (item, i) {
                 return _react2.default.createElement(
@@ -313,7 +315,9 @@ var Layout = function (_Component) {
                     item.name
                 );
             });
-        }, _this.addItemToList = function (item) {
+        };
+
+        _this.addItemToList = function (item) {
             var allItems = _this.state.allItems;
             var oldState = _this.state;
 
@@ -325,7 +329,9 @@ var Layout = function (_Component) {
                 console.log('New State');
                 console.log(_this.state);
             });
-        }, _this.showAllItems = function () {
+        };
+
+        _this.showAllItems = function () {
             return _this.state.allItems.map(function (item, i) {
                 return _react2.default.createElement(
                     "div",
@@ -369,7 +375,9 @@ var Layout = function (_Component) {
                     )
                 );
             });
-        }, _this.removeItem = function (index) {
+        };
+
+        _this.removeItem = function (index) {
             var oldState = _this.state;
             var newState = (0, _reactAddonsUpdate2.default)(oldState, {
                 allItems: {
@@ -377,7 +385,10 @@ var Layout = function (_Component) {
                 }
             });
             _this.setState(newState);
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        };
+
+        _this.submitForm = _this.submitForm.bind(_this);
+        return _this;
     }
 
     _createClass(Layout, [{
@@ -392,7 +403,7 @@ var Layout = function (_Component) {
     }, {
         key: "getAllProducts",
         value: function () {
-            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                 var _this2 = this;
 
                 var allProducts;
@@ -432,10 +443,57 @@ var Layout = function (_Component) {
             }));
 
             function getAllProducts() {
-                return _ref2.apply(this, arguments);
+                return _ref.apply(this, arguments);
             }
 
             return getAllProducts;
+        }()
+    }, {
+        key: "submitForm",
+        value: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+                var sumbit;
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                _context2.prev = 0;
+                                _context2.next = 3;
+                                return _axios2.default.post('/api/admin/products', {
+                                    form: this.state.form,
+                                    allItems: this.state.allItems
+                                });
+
+                            case 3:
+                                sumbit = _context2.sent;
+
+
+                                console.log(sumbit);
+
+                                _context2.next = 12;
+                                break;
+
+                            case 7:
+                                _context2.prev = 7;
+                                _context2.t0 = _context2["catch"](0);
+
+                                console.log('error submitting');
+                                console.log(_context2.t0);
+                                console.log('error sumbitting');
+
+                            case 12:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this, [[0, 7]]);
+            }));
+
+            function submitForm() {
+                return _ref2.apply(this, arguments);
+            }
+
+            return submitForm;
         }()
     }, {
         key: "render",
@@ -444,7 +502,7 @@ var Layout = function (_Component) {
 
             return _react2.default.createElement(
                 "form",
-                { "data-reactroot": "", action: "/admin/products", method: "POST" },
+                { "data-reactroot": "", action: "/api/admin/products", method: "POST" },
                 _react2.default.createElement(
                     "div",
                     { className: "row form-group" },
@@ -653,7 +711,7 @@ var Layout = function (_Component) {
                     { className: "form-group" },
                     _react2.default.createElement(
                         "div",
-                        { className: "btn btn-primary mb-3" },
+                        { className: "btn btn-primary mb-3", onClick: this.submitForm },
                         "Add Product"
                     )
                 )
