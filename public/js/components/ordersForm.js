@@ -343,7 +343,7 @@ var Layout = function (_Component) {
                             },
                             _react2.default.createElement(
                                 "div",
-                                { className: "item-delete" },
+                                { className: "item-delete", onClick: _this.removeItem.bind(null, i) },
                                 _react2.default.createElement("i", { className: "ti-close" })
                             )
                         ),
@@ -369,6 +369,14 @@ var Layout = function (_Component) {
                     )
                 );
             });
+        }, _this.removeItem = function (index) {
+            var oldState = _this.state;
+            var newState = (0, _reactAddonsUpdate2.default)(oldState, {
+                allItems: {
+                    $splice: [[index, 1]]
+                }
+            });
+            _this.setState(newState);
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 

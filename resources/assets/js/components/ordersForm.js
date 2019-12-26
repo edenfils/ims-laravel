@@ -127,7 +127,7 @@ class Layout extends Component {
                                 background: `url('${item.productInfo.img_url}')`
                             }}
                         >
-                            <div className="item-delete">
+                            <div className="item-delete" onClick={this.removeItem.bind(null,i)}>
                                 <i className="ti-close"/>
                             </div>
                         </div>
@@ -140,6 +140,16 @@ class Layout extends Component {
                 </div>
             )
         })
+    }
+
+    removeItem = (index) => {
+        let oldState  = this.state
+        let newState = update(oldState, {
+            allItems: {
+                $splice: [[index, 1]]
+            }
+        })
+        this.setState(newState)
     }
 
 
