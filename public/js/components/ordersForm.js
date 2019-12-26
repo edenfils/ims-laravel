@@ -325,6 +325,50 @@ var Layout = function (_Component) {
                 console.log('New State');
                 console.log(_this.state);
             });
+        }, _this.showAllItems = function () {
+            return _this.state.allItems.map(function (item, i) {
+                return _react2.default.createElement(
+                    "div",
+                    { className: "col-md-4", key: i },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "item-box mb-0" },
+                        _react2.default.createElement(
+                            "div",
+                            {
+                                className: "item-img",
+                                style: {
+                                    background: "url('" + item.productInfo.img_url + "')"
+                                }
+                            },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "item-delete" },
+                                _react2.default.createElement("i", { className: "ti-close" })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "title" },
+                            item.productInfo.title
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "quantity" },
+                            _react2.default.createElement(
+                                "label",
+                                { className: "col-form-label" },
+                                "Quantity"
+                            ),
+                            _react2.default.createElement(
+                                "h4",
+                                null,
+                                item.qtyBuying
+                            )
+                        )
+                    )
+                );
+            });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -564,11 +608,16 @@ var Layout = function (_Component) {
                     { className: "row order-items" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-12" },
+                        { className: "col-md-12 mb-0" },
                         _react2.default.createElement(
                             "h2",
                             null,
                             "Order Items"
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            this.showAllItems()
                         )
                     ),
                     _react2.default.createElement(

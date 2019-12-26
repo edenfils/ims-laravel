@@ -116,6 +116,33 @@ class Layout extends Component {
         })
     }
 
+    showAllItems =  () => {
+        return this.state.allItems.map((item,i) => {
+            return (
+                <div className="col-md-4" key={i}>
+                    <div className="item-box mb-0">
+                        <div 
+                            className="item-img" 
+                            style={{
+                                background: `url('${item.productInfo.img_url}')`
+                            }}
+                        >
+                            <div className="item-delete">
+                                <i className="ti-close"/>
+                            </div>
+                        </div>
+                        <div className="title">{item.productInfo.title}</div>
+                        <div className="quantity">
+            <label className="col-form-label">Quantity</label>
+                            <h4>{item.qtyBuying}</h4>
+                        </div>
+                    </div>
+                </div>
+            )
+        })
+    }
+
+
 
 
     
@@ -235,8 +262,11 @@ class Layout extends Component {
                     </div>
                 </div>
                 <div className="row order-items">
-                    <div className="col-md-12">
+                    <div className="col-md-12 mb-0">
                         <h2>Order Items</h2>
+                        <div className="row">
+                            {this.showAllItems()}
+                        </div>
                     </div>
                     <div className="col-md-4">
                         <div className="item-box">
