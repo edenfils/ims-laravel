@@ -42,9 +42,11 @@ class OrderController extends Controller
 
         $userId = Auth::id();
 
+        // Get data from post request
         $form = $request->input('form');
-        //$items = $request->input('allItems');
+        $items = $request->input('allItems');
 
+        //insert order with form data
         $order = DB::insert('INSERT INTO orders (
                 f_name, 
                 l_name, 
@@ -78,7 +80,27 @@ class OrderController extends Controller
 
             ]);
 
+            // get the id of the last order inserted
+
             $lastInsertedId = DB::getPdo()->lastInsertId();
+
+            // Insert items of the order
+            foreach($items as $item) {
+                DB::insert('INSERT INTO items ( title, sku, material, description, brand_id, qty, size, order_id, user_id)
+
+                VALUES (:title, :sku, :material, :description, :brand_id, :qty, :size, :order_id, :user_id)', [
+                    $item['productInfo']['title'],
+                    $item['productInfo']['sku'],
+                    $item['productInfo']['material'],
+                    $item['productInfo']['description'],
+                    $item['productInfo']['brand_id'],
+                    $item['qtyBuying'],
+                    $item['productInfo']['size'],
+                    $lastInsertedId,
+                    $userId
+                    
+                    ]);
+            }
 
             return  $lastInsertedId;
     }
