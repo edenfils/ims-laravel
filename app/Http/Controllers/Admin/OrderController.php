@@ -39,7 +39,48 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $userId = Auth::id();
+
+        $form = $request->input('form');
+        //$items = $request->input('allItems');
+
+        $order = DB::insert('INSERT INTO orders (
+                f_name, 
+                l_name, 
+                address, 
+                address_2, 
+                city,
+                state, 
+                country, 
+                payment_type, 
+                user_id
+              ) VALUES (
+                  :f_name, 
+                  :l_name, 
+                  :address, 
+                  :address_2, 
+                  :city,
+                  :state, 
+                  :country, 
+                  :payment_type, 
+                  :user_id)', [
+
+                $form['f_name'],
+                $form['l_name'],
+                $form['address'],
+                $form['address_2'],
+                $form['city'],
+                $form['state'],
+                $form['country'],
+                $form['payment_type'],
+                $userId
+
+            ]);
+
+            $lastInsertedId = DB::getPdo()->lastInsertId();
+
+            return  $lastInsertedId;
     }
 
     /**

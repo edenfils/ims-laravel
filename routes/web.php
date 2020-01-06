@@ -73,6 +73,9 @@ Route::get('/api/admin/products', 'Api\ProductController@index')->name('products
 Route::post('/api/admin/products', 'Api\ProductController@store')->name('products.store.api')->middleware('auth');
 
 
+Route::post('/api/admin/orders', 'Admin\OrderController@store')->name('orders.store.api')->middleware('auth');
+
+
 
 /**
      *  Authentication Routes

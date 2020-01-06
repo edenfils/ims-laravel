@@ -66,6 +66,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
 
+        $userId = Auth::id();
         // obteniendo todos los datos del formulario
         /*$product = $request->all();*/
 
@@ -95,7 +96,7 @@ class ProductController extends Controller
                 $product['brand_id'] , 
                 $product['qty'], 
                 $product['size'], 
-                1 
+                $userId
             ]);
         
 

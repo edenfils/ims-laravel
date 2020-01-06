@@ -178,7 +178,7 @@ var Modal = function (_Component) {
                             _react2.default.createElement(
                                 "div",
                                 { className: "add-btn btn btn-primary mb-3", onClick: this.saveItemBtn },
-                                "save item"
+                                "Save item"
                             ),
                             _react2.default.createElement(
                                 "div",
@@ -450,59 +450,35 @@ var Layout = function (_Component) {
         }()
     }, {
         key: "submitForm",
-        value: function () {
-            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-                var sumbit;
-                return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                _context2.prev = 0;
-                                _context2.next = 3;
-                                return _axios2.default.post('/api/admin/products', {
-                                    form: this.state.form,
-                                    allItems: this.state.allItems
-                                });
+        value: function submitForm() {
 
-                            case 3:
-                                sumbit = _context2.sent;
+            /*window.axios.defaults.headers.common = {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }*/
 
+            var token = document.head.querySelector('meta[name="csrf-token"]');
+            _axios2.default.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+            _axios2.default.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
-                                console.log(sumbit);
-
-                                _context2.next = 12;
-                                break;
-
-                            case 7:
-                                _context2.prev = 7;
-                                _context2.t0 = _context2["catch"](0);
-
-                                console.log('error submitting');
-                                console.log(_context2.t0);
-                                console.log('error sumbitting');
-
-                            case 12:
-                            case "end":
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, this, [[0, 7]]);
-            }));
-
-            function submitForm() {
-                return _ref2.apply(this, arguments);
-            }
-
-            return submitForm;
-        }()
+            _axios2.default.post('/api/admin/orders', {
+                _token: token.content,
+                form: this.state.form,
+                allItems: this.state.allItems
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
     }, {
         key: "render",
         value: function render() {
             var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4;
 
             return _react2.default.createElement(
-                "form",
-                { "data-reactroot": "", action: "/api/admin/products", method: "POST" },
+                "div",
+                null,
                 _react2.default.createElement(
                     "div",
                     { className: "row form-group" },
@@ -712,7 +688,7 @@ var Layout = function (_Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "btn btn-primary mb-3", onClick: this.submitForm },
-                        "Add Product"
+                        "Add Order"
                     )
                 )
             );

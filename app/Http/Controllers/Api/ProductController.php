@@ -26,6 +26,7 @@ class ProductController extends Controller
             products.qty,
             products.size,
             products.user_id,
+            products.brand_id,
             brands.title AS brand,
             users.name AS user,
             products.created_at
@@ -57,7 +58,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        //
     }
 
     /**

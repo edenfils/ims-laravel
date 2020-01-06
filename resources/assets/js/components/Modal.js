@@ -96,7 +96,7 @@ export default class Modal extends Component {
                                         </select>
                                     </div>
                                     <div className="add-btn btn btn-primary mb-3" onClick={this.saveItemBtn}>
-                                        save item
+                                        Save item
                                     </div>
                                     <div className="add-btn  btn btn-danger mb-3" onClick={this.cancelBtn}>
                                         cancel

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import ReactDOM from "react-dom";
 import update from "react-addons-update";
 import countries from 'country-list';
@@ -159,20 +159,31 @@ class Layout extends Component {
         this.setState(newState)
     }
 
-    async submitForm() {
-        try {
-            let sumbit = await axios.post('/api/admin/products', {
+    submitForm() {
+
+        /*window.axios.defaults.headers.common = {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }*/
+
+        const token = document.head.querySelector('meta[name="csrf-token"]');
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+
+
+        axios.post('/api/admin/orders', {
+                _token: token.content,
                 form: this.state.form,
                 allItems: this.state.allItems
             })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
-            console.log(sumbit)
-
-        } catch (error) {
-            console.log('error submitting')
-            console.log(error)
-            console.log('error sumbitting')
-        }
+       
     }
 
 
@@ -183,7 +194,7 @@ class Layout extends Component {
 
     render() {
         return (
-            <form data-reactroot="" action="/api/admin/products" method="POST">
+            <div>
                 <div className="row form-group">
                     <div className="col-sm-12 col-md-6">
                         <label htmlFor="example-text-input" className="col-form-label">
@@ -312,9 +323,9 @@ class Layout extends Component {
                     <Modal showModal={this.state.showModal} closeModal={this.showModal} allProducts={this.state.allProducts} addItemToList={this.addItemToList}/>
                 </div>
                 <div className="form-group">
-                    <div className="btn btn-primary mb-3" onClick={this.submitForm}>Add Product</div>
+                    <div  className="btn btn-primary mb-3" onClick={this.submitForm} >Add Order</div>
                 </div>
-            </form>
+            </div>
         );
     }
 }
