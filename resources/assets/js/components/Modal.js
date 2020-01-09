@@ -5,36 +5,102 @@ export default class Modal extends Component {
     state = {
         modalForm: {
             product:'',
-            qty: 1
+            qty: 1,
+            productQty: '',
         }
     };
 
 
 
-  // keep track of the input fileds and update the state
-    change = (event) => {
-      let self = this.state
-      let name = event.target.name
-      let value = (event.target.type === 'checkbox') ? event.target.checked: event.target.value
-      let currentState = this.state
-
-      let newState = update(currentState, {
-              modalForm : {
-                  $merge: {
-                    [name] : value
-                  }
-              }
-      })
-
-
-      this.setState(newState, () => {
-        console.log(this.state)
-      })
-    }
-
     cancelBtn = () => {
         this.props.closeModal()
     }
+
+  // keep track of the input fileds and update the state
+    change = (event) => {
+      let self = this
+
+      let name = event.target.name
+
+      let value = (event.target.type === 'checkbox') ? event.target.checked: event.target.value
+
+      let currentState = self.state
+
+      let newState = ''
+
+      if (name == 'product' && value != 'none') {
+        let productQty = self.props.allProducts.filter((item) => {
+            return item.id == value
+        })
+
+        productQty = productQty[0].qty
+        console.log(productQty)
+
+        newState = update(currentState, {
+              modalForm : {
+                  $merge: {
+                    [name] : value,
+                    productQty: productQty
+                  }
+              }
+        } , () => console.log(self.state))
+      } else {
+            newState = update(currentState, {
+                modalForm : {
+                    $merge: {
+                    [name] : value
+                    }
+                }
+            })
+        }
+
+      
+      self.setState(newState, () => {
+        console.log(self.state)
+      })
+    }
+
+    
+
+    showQty = () => {
+        let options = []
+
+        let number = 0
+
+       
+
+        if (this.state.modalForm.productQty >= 11) {
+            number = 10
+        } else {
+            number = this.state.modalForm.productQty
+        }
+
+        if (this.state.modalForm.product == 'none') {
+            return (<option value={`none`}>Please choose a product that is available</option>)
+        }
+
+        if (this.state.modalForm.productQty != 0 || this.state.modalForm.productQty != 'none') {
+            for ( var i = 1; i <= number; i++) {
+                options.push(i)
+            }
+    
+            return options.map( (item, j) => {
+                return (<option value={`${item}`} key={j}>
+                    {item}
+                </option>)
+            })
+
+        }
+        
+        else {
+            return (<option value={`none`}>Please choose a product that is available</option>)
+        }
+
+        
+       
+    }
+
+    
 
     showProducts = () => {
         if(this.props.allProducts != '') {
@@ -76,7 +142,7 @@ export default class Modal extends Component {
                                             value={this.state.modalForm.product}
                                             onChange={this.change}
                                         >
-                                            <option value="">Select Product</option>
+                                            <option value="none">Select Product</option>
                                            {this.showProducts()}
                                         </select>
                                     </div>
@@ -88,10 +154,8 @@ export default class Modal extends Component {
                                             value={this.state.modalForm.qty}
                                             onChange={this.change}
                                         >
-                                            <option value="none">Select Quantity</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                             
+                                            {this.showQty()}
                                              
                                         </select>
                                     </div>

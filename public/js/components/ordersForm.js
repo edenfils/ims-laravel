@@ -47,25 +47,88 @@ var Modal = function (_Component) {
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Modal.__proto__ || Object.getPrototypeOf(Modal)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             modalForm: {
                 product: '',
-                qty: 1
+                qty: 1,
+                productQty: ''
             }
-        }, _this.change = function (event) {
-            var self = _this.state;
-            var name = event.target.name;
-            var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-            var currentState = _this.state;
-
-            var newState = (0, _reactAddonsUpdate2.default)(currentState, {
-                modalForm: {
-                    $merge: _defineProperty({}, name, value)
-                }
-            });
-
-            _this.setState(newState, function () {
-                console.log(_this.state);
-            });
         }, _this.cancelBtn = function () {
             _this.props.closeModal();
+        }, _this.change = function (event) {
+            var self = _this;
+
+            var name = event.target.name;
+
+            var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+
+            var currentState = self.state;
+
+            var newState = '';
+
+            if (name == 'product' && value != 'none') {
+                var _$merge;
+
+                var productQty = self.props.allProducts.filter(function (item) {
+                    return item.id == value;
+                });
+
+                productQty = productQty[0].qty;
+                console.log(productQty);
+
+                newState = (0, _reactAddonsUpdate2.default)(currentState, {
+                    modalForm: {
+                        $merge: (_$merge = {}, _defineProperty(_$merge, name, value), _defineProperty(_$merge, "productQty", productQty), _$merge)
+                    }
+                }, function () {
+                    return console.log(self.state);
+                });
+            } else {
+                newState = (0, _reactAddonsUpdate2.default)(currentState, {
+                    modalForm: {
+                        $merge: _defineProperty({}, name, value)
+                    }
+                });
+            }
+
+            self.setState(newState, function () {
+                console.log(self.state);
+            });
+        }, _this.showQty = function () {
+            var options = [];
+
+            var number = 0;
+
+            if (_this.state.modalForm.productQty >= 11) {
+                number = 10;
+            } else {
+                number = _this.state.modalForm.productQty;
+            }
+
+            if (_this.state.modalForm.product == 'none') {
+                return _react2.default.createElement(
+                    "option",
+                    { value: "none" },
+                    "Please choose a product that is available"
+                );
+            }
+
+            if (_this.state.modalForm.productQty != 0 || _this.state.modalForm.productQty != 'none') {
+                for (var i = 1; i <= number; i++) {
+                    options.push(i);
+                }
+
+                return options.map(function (item, j) {
+                    return _react2.default.createElement(
+                        "option",
+                        { value: "" + item, key: j },
+                        item
+                    );
+                });
+            } else {
+                return _react2.default.createElement(
+                    "option",
+                    { value: "none" },
+                    "Please choose a product that is available"
+                );
+            }
         }, _this.showProducts = function () {
             if (_this.props.allProducts != '') {
                 return _this.props.allProducts.map(function (item, i) {
@@ -131,7 +194,7 @@ var Modal = function (_Component) {
                                     },
                                     _react2.default.createElement(
                                         "option",
-                                        { value: "" },
+                                        { value: "none" },
                                         "Select Product"
                                     ),
                                     this.showProducts()
@@ -153,26 +216,7 @@ var Modal = function (_Component) {
                                         value: this.state.modalForm.qty,
                                         onChange: this.change
                                     },
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "none" },
-                                        "Select Quantity"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "1" },
-                                        "1"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "2" },
-                                        "2"
-                                    ),
-                                    _react2.default.createElement(
-                                        "option",
-                                        { value: "3" },
-                                        "3"
-                                    )
+                                    this.showQty()
                                 )
                             ),
                             _react2.default.createElement(
