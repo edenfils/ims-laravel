@@ -100,9 +100,17 @@ class OrderController extends Controller
                     $userId
                     
                     ]);
+            
+                //update products quantity after saving an order
+                DB::update('UPDATE products 
+                    SET qty = qty - :qtyBuying 
+                    WHERE id = :id
+                ', [$item['qtyBuying'], $item['productInfo']['id']]);
             }
 
-            return  $lastInsertedId;
+            //return  $lastInsertedId;
+
+            return redirect('admin/orders');
     }
 
     /**
