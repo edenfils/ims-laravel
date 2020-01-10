@@ -16,7 +16,17 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $orders = DB::select("select orders.id,
+            CONCAT(orders.f_name, ' ', orders.l_name) AS customer,
+            SUM(items.qty) AS total_items, SUM(items.price * items.qty) AS total_price, CONCAT (orders.state, ' ', orders.country) AS location, orders.payment_type, users.name AS created_by FROM orders
+            INNER JOIN items ON orders.id = items.order_id
+            INNER JOIN users ON orders.user_id = users.id
+            GROUP BY orders.id");
+
+        //return $orders;
+        return view('admin/orders/all', ['user' => $user, 'orders' => $orders]);
     }
 
     /**
@@ -86,11 +96,12 @@ class OrderController extends Controller
 
             // Insert items of the order
             foreach($items as $item) {
-                DB::insert('INSERT INTO items ( title, sku, material, description, brand_id, qty, size, order_id, user_id)
+                DB::insert('INSERT INTO items ( title, sku, price, material, description, brand_id, qty, size, order_id, user_id)
 
                 VALUES (:title, :sku, :material, :description, :brand_id, :qty, :size, :order_id, :user_id)', [
                     $item['productInfo']['title'],
                     $item['productInfo']['sku'],
+                    $item['productInfo']['price'],
                     $item['productInfo']['material'],
                     $item['productInfo']['description'],
                     $item['productInfo']['brand_id'],
