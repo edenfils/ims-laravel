@@ -1,7 +1,7 @@
 @extends('layouts/admin');
 
 @section('title')
-   Order Number: {{ $order[0]->id}}  - IMS Laravel
+   Order Number: {{ $order[0]->id}} | Details  - IMS Laravel
 @endsection
 
 @section('breadcrumbs')
@@ -10,7 +10,7 @@
         <ul class="breadcrumbs pull-left">
             <li><a href="/admin">Dashboard</a></li>
             <li><a href="/admin/orders">All orders</a></li>
-            <li><span>Order Number: {{ $order[0]->id}}</span></li>
+            <li><span>Order Details</span></li>
         </ul>
     </div>
 @endsection
@@ -23,7 +23,7 @@
 
                 <div class=" section row">
                     <div class="col-md-12">
-                        <h2>Customer</h2>
+                        <h2>Customer Details:</h2>
                     </div>
                     <div class="col-md-6">
                         <label for="">
@@ -136,7 +136,7 @@
                                     
                                       <tr>
                                           <th scope="row">{{$item->id}}</th>
-                                          <td><img src="" width="200px" alt=""></td>
+                                      <td><img src="{{$item->img_url}}" width="200px" alt=""></td>
                                           <td>{{$item->title}}</td>
                                           <td>{{$item->sku}}</td>
                                           <td>{{$item->qty}}</td>

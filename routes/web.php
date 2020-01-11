@@ -68,9 +68,7 @@ Route::get('/admin/orders/{id}/delete', 'Admin\OrderController@destroy')->name('
 /***** *****/
 
 
-Route::get('/api/admin/products', 'Api\ProductController@index')->name('products.api')->middleware('auth');
-
-Route::post('/api/admin/products', 'Api\ProductController@store')->name('products.store.api')->middleware('auth');
+Route::get('/api/admin/products', 'Admin\ProductController@sendAllProducts')->name('products.api')->middleware('auth');
 
 
 Route::post('/api/admin/orders', 'Admin\OrderController@store')->name('orders.store.api')->middleware('auth');

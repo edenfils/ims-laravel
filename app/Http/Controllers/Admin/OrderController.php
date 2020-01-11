@@ -162,7 +162,11 @@ class OrderController extends Controller
             GROUP BY orders.id
         ', ['id' => $id]);
 
-        $items = DB::select('select * FROM items WHERE items.order_id = :id', ['id' => $id]);
+        $items = DB::select('select *, products.img_url FROM items
+            INNER JOIN products
+            ON items.title = products.title
+            WHERE items.order_id = :id
+        ', ['id' => $id]);
 
 
         //return $order;
