@@ -63,10 +63,12 @@
                                                             </td>
                                                             <td>{{ $product->brand }}</td>
                                                             <td>{{ $product->user }}</td>
-                                                            <td><span class="status-p 
+                                                            <td>
+                                                                <span class="status-p {{ $product->qty == 0 ? 'bg-danger' : 'bg-primary' }} 
                                                                 bg-primary">
-                                                                Availabale
-                                                              </span></td>
+                                                                {{ $product->qty == 0 ? 'Sold Out' : 'Availabale' }}
+                                                                </span>
+                                                            </td>
                                                             <td>
                                                                 <a 
                                                                 href="/admin/products/{{$product->id}}/edit" 

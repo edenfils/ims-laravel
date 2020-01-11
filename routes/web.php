@@ -28,7 +28,7 @@ Route::get('/admin/products', 'Admin\ProductController@index')->name('products')
 Route::post('/admin/products', 'Admin\ProductController@store')->name('product.store');
 Route::get('/admin/products/create', 'Admin\ProductController@create')->middleware('auth');
 Route::get('/admin/products/{id}', 'Admin\ProductController@show')->name('product.show')->middleware('auth');
-Route::get('/admin/products/{id}/edit', 'Admin\ProductController@edit')->middleware('auth');
+Route::get('/admin/products/{id}/edit', 'Admin\ProductController@edit')->name('product.edit')->middleware('auth');
 Route::put('/admin/products/{id}', 'Admin\ProductController@update')->name('product.update');
 Route::get('/admin/products/{id}/delete', 'Admin\ProductController@destroy')->name('product.delete')->middleware('auth');
 

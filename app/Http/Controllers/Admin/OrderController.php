@@ -63,7 +63,8 @@ class OrderController extends Controller
                 address, 
                 address_2, 
                 city,
-                state, 
+                state,
+                zipcode,
                 country, 
                 payment_type, 
                 user_id
@@ -84,6 +85,7 @@ class OrderController extends Controller
                 $form['address_2'],
                 $form['city'],
                 $form['state'],
+                $form['zipcode'],
                 $form['country'],
                 $form['payment_type'],
                 $userId
@@ -92,7 +94,7 @@ class OrderController extends Controller
 
             // get the id of the last order inserted
 
-            $lastInsertedId = DB::getPdo()->lastInsertId();
+            $lastOrderdId = DB::getPdo()->lastInsertId();
 
             // Insert items of the order
             foreach($items as $item) {
@@ -107,7 +109,7 @@ class OrderController extends Controller
                     $item['productInfo']['brand_id'],
                     $item['qtyBuying'],
                     $item['productInfo']['size'],
-                    $lastInsertedId,
+                    $lastOrderId,
                     $userId
                     
                     ]);
@@ -132,7 +134,39 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+
+
+        // obtener order 
+
+        $order = DB::select('select orders.id,
+            orders.f_name,
+            orders.l_name,
+            orders.address,
+            orders.address_2,
+            orders.city,
+            orders.state,
+            orders.zipcode,
+            orders.country,
+            orders.payment_type,
+            users.name AS user,
+            orders.created_at AS date,
+            SUM(items.qty) AS total_items,
+            SUM(items.qty * items.price) AS total_price
+            FROM orders
+            INNER JOIN users
+            ON orders.user_id = users.id
+            INNER JOIN items
+            ON orders.id = items.order_id
+            WHERE orders.id = :id
+            GROUP BY orders.id
+        ', ['id' => $id]);
+
+        $items = DB::select('select * FROM items WHERE items.order_id = :id', ['id' => $id]);
+
+
+        //return $order;
+        return view('admin/orders/show', ['user' => $user, 'order' => $order, 'items' => $items ]);
     }
 
     /**
