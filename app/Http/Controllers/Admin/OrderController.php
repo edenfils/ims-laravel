@@ -204,6 +204,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('DELETE from orders WHRE id = :id', ['id' => $id]);
+
+        return redirect()->route('orders')
     }
 }
